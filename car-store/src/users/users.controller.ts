@@ -5,7 +5,7 @@ import { CreateUserDto } from './dtos/create-user.dto';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dtos/update-user.dto';
 import { UserDto } from './dtos/user.dto';
-import { Serialize } from 'src/interceptors/serialize.interceptor';
+import { Serialize } from '../interceptors/serialize.interceptor';
 import { Authservice } from './auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './user.entity';
@@ -17,7 +17,6 @@ export class UsersController {
     constructor(private usersService: UsersService ,private authService:Authservice) {
     }
     
-
     @Get('/whoami')
     @UseGuards(AuthGuard)
     whoAmI(@CurrentUser() user: User){
@@ -54,6 +53,7 @@ export class UsersController {
     findAllUsers(@Query('email') email:string) {
         return this.usersService.find(email);
     }
+    
     @Patch('/:id')
     updateUser(@Param('id') id:string, @Body() body:UpdateUserDto) {
         console.log(body);
